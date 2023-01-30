@@ -31,12 +31,23 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     needs: [build]
     secrets: inherit
+    concurrency: release
     with: 
       config-path: .github/labeler.yml
       
   deploy-acpt:
     uses: ./.github/workflows/deploy.yml
-    needs: [build]
+    needs: [deploy-dev]
     secrets: inherit
+    concurrency: release
     with: 
       config-path: .github/labeler.yml
+      
+  preview:
+    uses: ./.github/workflows/deploy.yml
+    needs: [build]
+    secrets: inherit
+    concurrency: previce
+    with: 
+      config-path: .github/labeler.yml
+  
