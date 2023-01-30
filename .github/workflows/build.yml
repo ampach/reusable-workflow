@@ -42,12 +42,4 @@ jobs:
     concurrency: release
     with: 
       config-path: .github/labeler.yml
-      
-  preview:
-    uses: ./.github/workflows/deploy.yml
-    needs: [build]
-    secrets: inherit
-    concurrency: previce
-    with: 
-      config-path: .github/labeler.yml
   
