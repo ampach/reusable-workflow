@@ -28,7 +28,7 @@ jobs:
           echo test, and deploy your project.
           
   deploy:
-    uses: ./.github/workflows/deploy.yaml
+    uses: ./.github/workflows/deploy.yml
     needs: [build]
     secrets: inherit
     with: 
