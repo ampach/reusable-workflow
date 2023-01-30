@@ -27,10 +27,16 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           
-  deploy:
+  deploy-dev:
     uses: ./.github/workflows/deploy.yml
     needs: [build]
     secrets: inherit
     with: 
       config-path: .github/labeler.yml
       
+  deploy-acpt:
+    uses: ./.github/workflows/deploy.yml
+    needs: [build]
+    secrets: inherit
+    with: 
+      config-path: .github/labeler.yml
