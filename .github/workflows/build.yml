@@ -43,7 +43,7 @@ jobs:
     secrets: inherit
     concurrency: release
     with: 
-      config-path: ${{ env.build_tag }}
+      config-path: .github/labeler.yml
       
   deploy-acpt:
     uses: ./.github/workflows/deploy.yml
