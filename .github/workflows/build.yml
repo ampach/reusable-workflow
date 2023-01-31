@@ -18,12 +18,12 @@ jobs:
     steps: 
       - name: Get current date
         id: date
-        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+        run: echo "date=$(date +'%Y%m%d-%H%M')" >> $GITHUB_OUTPUT
       
       - name: Get build tag
         id: build_tag
         run: |
-          echo "build_tag=$BUILD_DATE-$GITHUB_RUN_ATTEMPT" >> $GITHUB_OUTPUT
+          echo "build_tag=$BUILD_DATE" >> $GITHUB_OUTPUT
         env:
           BUILD_DATE: ${{ steps.date.outputs.date }}
   
