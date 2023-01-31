@@ -23,10 +23,9 @@ jobs:
       - name: Get build tag
         id: build_tag
         run: |
-          echo "build_tag=$BUILD_DATE-$BUILD_ATTEMPT" >> $GITHUB_OUTPUT
+          echo "build_tag=$BUILD_DATE-$GITHUB_RUN_ATTEMPT" >> $GITHUB_OUTPUT
         env:
           BUILD_DATE: ${{ steps.date.outputs.date }}
-          BUILD_ATTEMPT: ${{ env.GITHUB_RUN_ATTEMPT }}
   
       # Runs a single command using the runners shell
       - name: Run a one-line script
