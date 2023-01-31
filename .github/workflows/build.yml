@@ -16,7 +16,15 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps: 
-
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+      
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "current_date=${{ steps.date.outputs.date }}" >> $GITHUB_ENV
+  
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
@@ -33,7 +41,7 @@ jobs:
     secrets: inherit
     concurrency: release
     with: 
-      config-path: .github/labeler.yml
+      config-path: ${{ env.current_date }}
       
   deploy-acpt:
     uses: ./.github/workflows/deploy.yml
