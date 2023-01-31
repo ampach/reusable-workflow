@@ -18,12 +18,14 @@ jobs:
     steps: 
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
       
-      - name: Set the value
-        id: step_one
+      - name: Get build tag
         run: |
-          echo "current_date=${{ steps.date.outputs.date }}" >> $GITHUB_ENV
+          echo "build_tag=$BUILD_DATE-$BUILD_ATTEMPT" >> $GITHUB_ENV
+        env:
+          BUILD_DATE: ${{ steps.date.outputs.date }}
+          BUILD_ATTEMPT: ${{ env.GITHUB_RUN_ATTEMPT }}
   
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -41,7 +43,7 @@ jobs:
     secrets: inherit
     concurrency: release
     with: 
-      config-path: ${{ env.current_date }}
+      config-path: ${{ env.build_tag }}
       
   deploy-acpt:
     uses: ./.github/workflows/deploy.yml
