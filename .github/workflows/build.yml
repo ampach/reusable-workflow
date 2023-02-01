@@ -44,7 +44,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     needs: [build]
     secrets:
-      DEMO_HOST: ${{ secrets.RESOURCE_GROUP }}
+      DEMO_HOST: ${{ secrets.DEMO_HOST }}
       envPAT: ${{ secrets.envPAT }}
     concurrency: release
     with:
@@ -55,7 +55,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     needs: [build, deploy-dev]
     secrets:
-      DEMO_HOST: ${{ secrets.RESOURCE_GROUP }}
+      DEMO_HOST: ${{ secrets.DEMO_HOST }}
       envPAT: ${{ secrets.envPAT }}
     concurrency: release
     with:
