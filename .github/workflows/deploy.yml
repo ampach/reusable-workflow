@@ -9,8 +9,14 @@ on:
       config-path:
         required: true
         type: string
+      environment:
+        required: true
+        type: string
+        default: 'dev'
     secrets:
       envPAT:
+        required: true
+      DEMO_HOST:
         required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -24,8 +30,9 @@ jobs:
     steps:
 
       # Runs a single command using the runners shell
-      - name: Run a one-line with envPAT
-        run: echo ${{ secrets.envPAT }}
+      - name: Run a one-line with DEMO_HOST
+        run: echo ${{secrets.DEMO_HOST }} | sed 's/./& /g'
+        
 
       # Runs a set of commands using the runners shell
       - name: Run a one-line with envPAT
