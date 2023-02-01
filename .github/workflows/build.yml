@@ -43,7 +43,9 @@ jobs:
   deploy-dev:
     uses: ./.github/workflows/deploy.yml
     needs: [build]
-    secrets: inherit
+    secrets:
+      DEMO_HOST: ${{ secrets.RESOURCE_GROUP }}
+      envPAT: ${{ secrets.envPAT }}
     concurrency: release
     with:
       environment: dev
@@ -52,7 +54,9 @@ jobs:
   deploy-test:
     uses: ./.github/workflows/deploy.yml
     needs: [build, deploy-dev]
-    secrets: inherit
+    secrets:
+      DEMO_HOST: ${{ secrets.RESOURCE_GROUP }}
+      envPAT: ${{ secrets.envPAT }}
     concurrency: release
     with:
       environment: test
