@@ -45,14 +45,16 @@ jobs:
     needs: [build]
     secrets: inherit
     concurrency: release
-    with: 
+    with:
+      environment: dev
       config-path: ${{needs.build.outputs.build_tag}}
       
-  deploy-acpt:
+  deploy-test:
     uses: ./.github/workflows/deploy.yml
     needs: [build, deploy-dev]
     secrets: inherit
     concurrency: release
-    with: 
+    with:
+      environment: test
       config-path: ${{needs.build.outputs.build_tag}}
   
