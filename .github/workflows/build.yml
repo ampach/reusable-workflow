@@ -48,7 +48,7 @@ jobs:
       envPAT: ${{ secrets.envPAT }}
     concurrency: release
     with:
-      environment: dev
+      environment: DEV
       config-path: ${{needs.build.outputs.build_tag}}
       
   deploy-test:
@@ -59,6 +59,6 @@ jobs:
       envPAT: ${{ secrets.envPAT }}
     concurrency: release
     with:
-      environment: test
+      environment: TEST
       config-path: ${{needs.build.outputs.build_tag}}
   
