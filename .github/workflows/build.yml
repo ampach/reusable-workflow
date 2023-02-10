@@ -41,28 +41,43 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: v.1.0.0
+          release_name: Release v.1.0.0
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          prerelease: false
+      
+          
     outputs:
       build_tag: ${{ steps.build_tag.outputs.build_tag }}
           
-  deploy-dev:
-    uses: ./.github/workflows/deploy.yml
-    needs: [build]
-    secrets:
-      DEMO_HOST: ${{ secrets.DEMO_HOST }}
-      envPAT: ${{ secrets.envPAT }}
-    concurrency: release
-    with:
-      environment: dev
-      config-path: ${{needs.build.outputs.build_tag}}
+#  deploy-dev:
+#    uses: ./.github/workflows/deploy.yml
+#    needs: [build]
+#    secrets:
+#      DEMO_HOST: ${{ secrets.DEMO_HOST }}
+#      envPAT: ${{ secrets.envPAT }}
+#    concurrency: release
+#    with:
+#      environment: dev
+#      config-path: ${{needs.build.outputs.build_tag}}
       
-  deploy-test:
-    uses: ./.github/workflows/deploy.yml
-    needs: [build, deploy-dev]
-    secrets:
-      DEMO_HOST: ${{ secrets.DEMO_HOST }}
-      envPAT: ${{ secrets.envPAT }}
-    concurrency: release
-    with:
-      environment: test
-      config-path: ${{needs.build.outputs.build_tag}}
+#  deploy-test:
+#    uses: ./.github/workflows/deploy.yml
+#    needs: [build, deploy-dev]
+#    secrets:
+#      DEMO_HOST: ${{ secrets.DEMO_HOST }}
+#      envPAT: ${{ secrets.envPAT }}
+#    concurrency: release
+#    with:
+#      environment: test
+#      config-path: ${{needs.build.outputs.build_tag}}
   
