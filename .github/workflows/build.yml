@@ -44,6 +44,9 @@ jobs:
         run: |
           $version = New-Object System.Version(${{ steps.releaseVersion.outputs.Release_tag }})
           $newVersion = ""
+          
+          [string]::Empty
+          
           if (${{ github.event.pull_request.title }} -contains "major") { 
             $newVersion = "{0}.{1}.{2}" -f $version.Major++, 0, 0
           } elseif (${{ github.event.pull_request.title }} -contains "minor") {
