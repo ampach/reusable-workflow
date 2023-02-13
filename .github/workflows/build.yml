@@ -40,7 +40,6 @@ jobs:
             
       - name: Bumping release version 
         id: bump_release_version
-        if: contains(github.event.pull_request.title, 'patch')
         shell: pwsh
         run: |
           $version = New-Object System.Version(${{ steps.releaseVersion.outputs.Release_tag }})
