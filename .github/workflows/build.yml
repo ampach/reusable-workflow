@@ -44,7 +44,7 @@ jobs:
         id: bump_release_version
         shell: pwsh
         run: |
-          $version = New-Object System.Version(${{ steps.releaseVersion.outputs.Release_tag }})
+          $version = New-Object System.Version("${{ steps.releaseVersion.outputs.Release_tag }}")
           $newVersion = ""
           
           $comment = "${{ github.event.head_commit.message }}"
