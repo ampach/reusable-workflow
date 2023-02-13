@@ -27,6 +27,17 @@ jobs:
           echo "build_tag=$BUILD_DATE" >> $GITHUB_OUTPUT
         env:
           BUILD_DATE: ${{ steps.date.outputs.date }}
+          
+      - name: Taking the Latest Release Tag number
+        id: releaseVersion
+        run: |
+          owner="ampach"
+          repo="reusable-workflow"
+          release_json=$(curl https://api.github.com/repos/$owner/$repo/releases)
+          Release_tag=$(echo "$release_json" | jq -r '.[0].tag_name')
+          echo "Release_tag: Latest Tag is : $Release_tag"
+          echo "Release_tag=$Release_tag" >> $GITHUB_OUTPUT 
+          
   
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -34,27 +45,21 @@ jobs:
         
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo ${{ vars.NAME }}
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+        run: echo ${{ steps.releaseVersion.outputs.Release_tag }}
           
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v.1.0.0
-          release_name: Release v.1.0.0
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          prerelease: false
+#      - name: Create Release
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#        with:
+#          tag_name: v.1.0.0
+#          release_name: Release v.1.0.0
+#          body: |
+#            Changes in this Release
+#            - First Change
+#            - Second Change
+#          prerelease: false
       
           
     outputs:
