@@ -52,11 +52,11 @@ jobs:
           $version = New-Object System.Version(${{ steps.releaseVersion.outputs.Release_tag }})
           $newVersion = ""
           
-          [string]::Empty
+          $comment = "${{ github.event.head_commit.message }}"
           
-          if (${{ github.event.pull_request.title }} -contains "major") { 
+          if ($comment -contains "major") { 
             $newVersion = "{0}.{1}.{2}" -f $version.Major++, 0, 0
-          } elseif (${{ github.event.pull_request.title }} -contains "minor") {
+          } elseif ($comment -contains "minor") {
             $newVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor++, 0
           } else {
             $newVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, $version.Build++
