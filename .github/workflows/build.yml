@@ -13,7 +13,9 @@ on:
 jobs:
   
   create-release:
-    uses: ./.github/workflows/_create-release.yml
+    permissions: 
+      contents: write
+    uses: ./.github/workflows/_create-release.yml    
     with:
       pre_release: false
 
