@@ -10,6 +10,10 @@ on:
         required: true
         type: boolean
         default: false
+    outputs:
+      build_tag:
+        description: "The new release version"
+        value: ${{ jobs.create-release.outputs.build_tag }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
@@ -48,12 +52,10 @@ jobs:
           } elseif ($comment -contains "minor") {
             $newVersion = "{0}.{1}.{2}" -f $version.Major, ($version.Minor + 1), 0
           } else {
-            write-host $version.Major
-            write-host $version.Minor
-            write-host $version.Build
             $newVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, ($version.Build + 1)
           }          
           "new_release_tag=$newVersion" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          write-host "The new release version is $newVersion"
           
               
       - name: Create Release
