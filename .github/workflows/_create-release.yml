@@ -50,9 +50,9 @@ jobs:
           write-host $comment
           write-host ($comment -contains "major")
           
-          if ($comment -contains "major") { 
+          if ($comment -match "major") { 
             $newVersion = "{0}.{1}.{2}" -f ($version.Major + 1), 0, 0
-          } elseif ($comment -contains "minor") {
+          } elseif ($comment -match "minor") {
             $newVersion = "{0}.{1}.{2}" -f $version.Major, ($version.Minor + 1), 0
           } else {
             $newVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, ($version.Build + 1)
