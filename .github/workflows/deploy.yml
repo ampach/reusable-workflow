@@ -19,5 +19,5 @@ jobs:
       - name: Taking Tag number
         id: releaseVersion
         run: |
-          GIT_TAG=$(git describe --tags --abbrev=0)
+          GIT_TAG=${{github.ref_name}}
           echo "Tag number: $GIT_TAG"   
