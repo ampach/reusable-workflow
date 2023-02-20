@@ -34,7 +34,7 @@ jobs:
           owner="${{ github.repository_owner }}"
           repo="${{ github.event.repository.name }}"
           release_json=$(curl https://api.github.com/repos/$owner/$repo/releases)
-          Release_tag={ $(echo "$release_json" | jq -r '.[0].tag_name') } || { "0.0.1" }
+          Release_tag= $(echo "$release_json" | jq -r '.[0].tag_name') || "0.0.1" 
           echo "Release_tag: Latest Tag is : $Release_tag"
           echo "Release_tag=$Release_tag" >> $GITHUB_OUTPUT        
             
