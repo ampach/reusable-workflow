@@ -59,23 +59,12 @@ jobs:
           }          
           "new_release_tag=$newVersion" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
           write-host "The new release version is $newVersion"
-      
-      - name: Create Tag
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/${{ steps.bump_release_version.outputs.new_release_tag }}',
-              sha: context.sha
-            })
               
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: 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
         with:
           tag_name: ${{ steps.bump_release_version.outputs.new_release_tag }}
           release_name: Release v.${{ steps.bump_release_version.outputs.new_release_tag }}
