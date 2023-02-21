@@ -64,7 +64,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{ secrets.AUTOMATION_PAT }}
         with:
           tag_name: ${{ steps.bump_release_version.outputs.new_release_tag }}
           release_name: Release v.${{ steps.bump_release_version.outputs.new_release_tag }}
