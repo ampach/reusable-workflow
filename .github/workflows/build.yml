@@ -18,6 +18,7 @@ jobs:
     uses: ./.github/workflows/_create-release.yml    
     with:
       pre_release: false
+    secrets: inherit
 
   # This workflow contains a single job called a "build"
   build:
