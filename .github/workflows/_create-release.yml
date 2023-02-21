@@ -10,6 +10,9 @@ on:
         required: true
         type: boolean
         default: false
+    secrets:
+      AUTOMATION_PAT:
+        required: true        
     outputs:
       build_tag:
         description: "The new release version"
