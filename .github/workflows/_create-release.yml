@@ -38,12 +38,11 @@ jobs:
           repo="${{ github.event.repository.name }}"
           owner="${{ github.repository_owner }}"
           repo="${{ github.event.repository.name }}"
-          latest_release=$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/$owner/$repo/releases/latest)
-          echo "$latest_release"
-          release_json=$(curl https://api.github.com/repos/$owner/$repo/releases)
-          Release_tag=$(echo "$release_json" | jq -r '.[0].tag_name')
-          echo "Release_tag: Latest Tag is : $Release_tag"
-          echo "Release_tag=$Release_tag" >> $GITHUB_OUTPUT
+          release_json=$(gh api -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" /repos/$owner/$repo/releases/latest)        
+          
+          echo "Release_tag: Latest Tag is : $release_json.tag_name"
+          echo "Release_tag=$release_json.tag_name" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
