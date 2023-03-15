@@ -32,6 +32,7 @@ jobs:
     steps:      
       - name: Create Release
         run: |
+          echo ${{ github.event.client_payload.artifact_path }}
           echo "new tag is: ${{ needs.create-release.outputs.build_tag }}"
           
  
